@@ -15,11 +15,16 @@
 
       <card-component
         class="has-table has-mobile-sort-spaced"
-        title="Clients"
+        title="ชั้นฝากขัง"
         icon="account-multiple"
       >
-        <clients-table-sample
+        <!-- <clients-table-sample
           :data-url="`${$router.options.base}data-sources/clients.json`"
+          :checkable="true"
+        /> -->
+
+        <precase-table
+          :data-url="`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`"
           :checkable="true"
         />
       </card-component>
@@ -51,7 +56,8 @@
 
 <script>
 // import Notification from '@/components/Notification'
-import ClientsTableSample from '@/components/ClientsTableSample'
+// import ClientsTableSample from '@/components/ClientsTableSample'
+import PrecaseTable from '@/components/PrecaseTable'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
@@ -61,7 +67,8 @@ export default {
     HeroBar,
     TitleBar,
     CardComponent,
-    ClientsTableSample,
+    // ClientsTableSample,
+    PrecaseTable,
     // Notification,
   },
   computed: {
