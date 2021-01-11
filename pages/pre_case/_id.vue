@@ -24,13 +24,13 @@
               <b-input v-model="form.id" custom-class="is-static" readonly />
             </b-field>
             <hr />
-            <b-field label="Avatar" horizontal>
+            <!-- <b-field label="Avatar" horizontal>
               <file-picker />
-            </b-field>
-            <hr />
+            </b-field> -->
+            <!-- <hr /> -->
             <b-field label="Name" message="Client name" horizontal>
               <b-input
-                v-model="form.name"
+                v-model="form.sector"
                 placeholder="e.g. John Doe"
                 required
               />
@@ -75,7 +75,7 @@
         </card-component>
         <card-component
           v-if="isProfileExists"
-          title="Client Profile"
+          title="ข้อมูลชั้นฝากขัง"
           icon="account"
           class="tile is-child"
         >
@@ -85,7 +85,7 @@
           />
           <hr />
           <b-field label="Name">
-            <b-input :value="form.name" custom-class="is-static" readonly />
+            <b-input :value="form.sector" custom-class="is-static" readonly />
           </b-field>
           <b-field label="Company">
             <b-input :value="form.company" custom-class="is-static" readonly />
@@ -124,15 +124,15 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-import FilePicker from '@/components/FilePicker'
+// import FilePicker from '@/components/FilePicker'
 import UserAvatar from '@/components/UserAvatar'
 import Notification from '@/components/Notification'
 
 export default {
-  name: 'ClientForm',
+  name: 'PrecaseForm',
   components: {
     UserAvatar,
-    FilePicker,
+    // FilePicker,
     CardComponent,
     Tiles,
     HeroBar,
@@ -153,12 +153,12 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.name
+        lastCrumb = this.form.sector_desc.name
       } else {
         lastCrumb = 'New client'
       }
 
-      return ['Admin', 'Clients', lastCrumb]
+      return ['Admin', 'ชั้นฝากขัง', lastCrumb]
     },
     heroTitle() {
       if (this.isProfileExists) {
@@ -183,7 +183,7 @@ export default {
     },
     formCardTitle() {
       if (this.isProfileExists) {
-        return 'Edit Client'
+        return 'แก้ไข ข้อมูลชั้นฝากขัง'
       } else {
         return 'New Client'
       }
@@ -207,7 +207,7 @@ export default {
     getClearFormObject() {
       return {
         id: null,
-        name: null,
+        sector: null,
         company: null,
         city: null,
         created_date: new Date(),
@@ -218,7 +218,7 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
-          .get(`${this.$router.options.base}data-sources/clients.json`)
+          .get(`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`)
           .then((r) => {
             const item = find(
               r.data.data,
