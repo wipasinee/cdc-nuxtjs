@@ -13,67 +13,186 @@
           <span><b>Demo only.</b> No data will be saved/updated</span>
         </div>
       </notification>
-      <tiles>
-        <card-component
-          :title="formCardTitle"
-          icon="account-edit"
-          class="tile is-child"
-        >
-          <form @submit.prevent="submit">
-            <b-field label="ID" horizontal>
-              <b-input v-model="form.id" custom-class="is-static" readonly />
-            </b-field>
-            <hr />
-            <!-- <b-field label="Avatar" horizontal>
+      <!-- <tiles> -->
+      <card-component
+        :title="formCardTitle"
+        icon="account-edit"
+        class="tile is-child"
+      >
+        <form @submit.prevent="submit">
+          <b-field label="ID" horizontal>
+            <b-input v-model="form.id" custom-class="is-static" readonly />
+          </b-field>
+          <hr />
+          <!-- <b-field label="Avatar" horizontal>
               <file-picker />
             </b-field> -->
-            <!-- <hr /> -->
-            <b-field label="Name" message="Client name" horizontal>
+          <!-- <hr /> -->
+          <!-- <b-field label="Name" message="Client name" horizontal>
               <b-input
                 v-model="form.sector"
                 placeholder="e.g. John Doe"
                 required
-              />
-            </b-field>
-            <b-field label="Company" message="Client's company name" horizontal>
-              <b-input
-                v-model="form.company"
-                placeholder="e.g. Berton & Steinway"
-                required
-              />
-            </b-field>
-            <b-field label="City" message="Client's city" horizontal>
-              <b-input
-                v-model="form.city"
-                placeholder="e.g. Geoffreyton"
-                required
-              />
-            </b-field>
-            <b-field label="Created" horizontal>
-              <b-datepicker
-                v-model="form.created_date"
-                placeholder="Click to select..."
-                icon="calendar-today"
-                @input="input"
+              /> -->
+          <b-field label="รายชื่อผู้ต้องหาจากชั้นพนักงานสอบสวน *" horizontal>
+            <b-select
+              v-model="form.department"
+              placeholder="Select a department"
+              required
+            >
+              <option
+                v-for="(department, index) in departments"
+                :key="index"
+                :value="department"
               >
-              </b-datepicker>
-            </b-field>
-            <hr />
-            <b-field label="Progress" horizontal>
-              <b-slider v-model="form.progress" />
-            </b-field>
-            <hr />
-            <b-field horizontal>
-              <b-button
-                type="is-primary"
-                :loading="isLoading"
-                native-type="submit"
-                >Submit</b-button
-              >
-            </b-field>
-          </form>
-        </card-component>
-        <card-component
+                {{ department }}
+              </option>
+            </b-select>
+          </b-field>
+
+          <b-field
+            label="เลขคำร้องขอฝากขัง *"
+            message="Client's company name"
+            horizontal
+          >
+            <b-input
+              v-model="form.company"
+              placeholder="e.g. Berton & Steinway"
+              required
+            />
+          </b-field>
+          <b-field
+            label="วันแรกที่นำตัวมาฝากขัง *"
+            message="Client's company name"
+            horizontal
+          >
+            <b-input
+              v-model="form.company"
+              placeholder="e.g. Berton & Steinway"
+              required
+            />
+          </b-field>
+          <hr />
+          <b-field
+            label="ยื่นคำร้องขอปล่อยตัวชั่วคราว หรือไม่"
+            class="has-check"
+            horizontal
+          >
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{ one: 'ยื่น', two: 'ไม่ยื่น' }"
+            >
+            </radio-picker>
+          </b-field>
+          <hr />
+          <b-field
+            label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
+            class="has-check"
+            horizontal
+          >
+            <checkbox-picker
+              v-model="customElementsForm.checkbox"
+              :options="{
+                lorem: 'ไม่ระบุ',
+                ipsum: 'บิดา',
+                dolore: 'มารดา',
+                a: 'ภรรยา',
+                b: 'บุตร',
+                c: 'นายประกันอาชีพ',
+                d: 'ญาติ',
+                e: 'ประกันตนเอง',
+                f: 'นายจ้าง',
+              }"
+              type="is-primary"
+            />
+          </b-field>
+          <b-field
+            label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
+            class="has-check"
+            horizontal
+          >
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
+            >
+            </radio-picker>
+          </b-field>
+          <hr />
+          <b-field label="ศาลที่อนุญาต" class="has-check" horizontal>
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{
+                one: 'ศาลชั้นต้น',
+                two: 'ศาลอุทธรณ์',
+                three: 'ศาลฎีกา',
+              }"
+            >
+            </radio-picker>
+          </b-field>
+          <b-field
+            label="วันที่อนุญาตปล่อยตัวชั่วคราว"
+            message="Client's company name"
+            horizontal
+          >
+            <b-input
+              v-model="form.company"
+              placeholder="e.g. Berton & Steinway"
+              required
+            />
+          </b-field>
+          <b-field label="การสิ้นสุดสัญญาประกัน" class="has-check" horizontal>
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{
+                one: 'หลบหนี',
+                two: 'ถอนประกัน',
+                three: 'อยู๋ระหว่างประกัน',
+              }"
+            >
+            </radio-picker>
+          </b-field>
+          <b-field
+            label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
+            class="has-check"
+            horizontal
+          >
+            <checkbox-picker
+              v-model="customElementsForm.checkbox"
+              :options="{
+                lorem: 'บุคคล',
+                ipsum: 'เงินสด',
+                dolore: 'หลักทรัพย์',
+                a: 'กรมธรรม์',
+                b: 'ตำแหน่ง',
+                c: 'อื่นๆ',
+              }"
+              type="is-primary"
+            />
+          </b-field>
+          <hr />
+          <b-field label="สถานะผู้ต้องหา" class="has-check" horizontal>
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{
+                one: 'หลบหนี',
+                two: 'ถอนประกัน',
+                three: 'อยู่ระหว่างประกัน',
+              }"
+            >
+            </radio-picker>
+          </b-field>
+          <hr />
+          <b-field horizontal>
+            <b-button
+              type="is-primary"
+              :loading="isLoading"
+              native-type="submit"
+              >Submit</b-button
+            >
+          </b-field>
+        </form>
+      </card-component>
+      <!-- <card-component
           v-if="isProfileExists"
           title="ข้อมูลชั้นฝากขัง"
           icon="account"
@@ -110,8 +229,33 @@
               {{ form.progress }}
             </progress>
           </b-field>
-        </card-component>
-      </tiles>
+        </card-component> -->
+      <!-- </tiles> -->
+      <br />
+      <card-component title="ข้อมูลการฝากขัง" icon="ballot-outline">
+        <b-field label="Checkbox" class="has-check" horizontal>
+          <checkbox-picker
+            v-model="customElementsForm.checkbox"
+            :options="{ lorem: 'Lorem', ipsum: 'Ipsum', dolore: 'Dolore' }"
+            type="is-primary"
+          />
+        </b-field>
+        <hr />
+        <b-field label="Radio" class="has-check" horizontal>
+          <radio-picker
+            v-model="customElementsForm.radio"
+            :options="{ one: 'One', two: 'Two' }"
+          ></radio-picker>
+        </b-field>
+        <hr />
+        <b-field label="Switch" horizontal>
+          <b-switch v-model="customElementsForm.switch"> Default </b-switch>
+        </b-field>
+        <hr />
+        <b-field label="File" horizontal>
+          <file-picker v-model="customElementsForm.file" />
+        </b-field>
+      </card-component>
     </section>
   </div>
 </template>
@@ -122,22 +266,26 @@ import dayjs from 'dayjs'
 import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
-import Tiles from '@/components/Tiles'
+// import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
+import RadioPicker from '@/components/RadioPicker'
+import CheckboxPicker from '@/components/CheckboxPicker'
 // import FilePicker from '@/components/FilePicker'
-import UserAvatar from '@/components/UserAvatar'
+// import UserAvatar from '@/components/UserAvatar'
 import Notification from '@/components/Notification'
 
 export default {
   name: 'PrecaseForm',
   components: {
-    UserAvatar,
+    // UserAvatar,
     // FilePicker,
     CardComponent,
-    Tiles,
+    // Tiles,
     HeroBar,
     TitleBar,
     Notification,
+    RadioPicker,
+    CheckboxPicker,
   },
   data() {
     return {
@@ -146,6 +294,12 @@ export default {
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
+      customElementsForm: {
+        checkbox: [],
+        radio: null,
+        // switch: true,
+        // file: null,
+      },
     }
   },
   computed: {
