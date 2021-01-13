@@ -81,43 +81,46 @@
             <radio-picker
               v-model="customElementsForm.radio"
               :options="{ one: 'ยื่น', two: 'ไม่ยื่น' }"
+              @click="showDiv = !showDiv"
             >
             </radio-picker>
           </b-field>
           <hr />
-          <b-field
-            label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
-            class="has-check"
-            horizontal
-          >
-            <checkbox-picker
-              v-model="customElementsForm.checkbox"
-              :options="{
-                lorem: 'ไม่ระบุ',
-                ipsum: 'บิดา',
-                dolore: 'มารดา',
-                a: 'ภรรยา',
-                b: 'บุตร',
-                c: 'นายประกันอาชีพ',
-                d: 'ญาติ',
-                e: 'ประกันตนเอง',
-                f: 'นายจ้าง',
-              }"
-              type="is-primary"
-            />
-          </b-field>
-          <b-field
-            label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
-            class="has-check"
-            horizontal
-          >
-            <radio-picker
-              v-model="customElementsForm.radio"
-              :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
+          <div v-if="showDiv">
+            <b-field
+              label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
+              class="has-check"
+              horizontal
             >
-            </radio-picker>
-          </b-field>
-          <hr />
+              <checkbox-picker
+                v-model="customElementsForm.checkbox"
+                :options="{
+                  lorem: 'ไม่ระบุ',
+                  ipsum: 'บิดา',
+                  dolore: 'มารดา',
+                  a: 'ภรรยา',
+                  b: 'บุตร',
+                  c: 'นายประกันอาชีพ',
+                  d: 'ญาติ',
+                  e: 'ประกันตนเอง',
+                  f: 'นายจ้าง',
+                }"
+                type="is-primary"
+              />
+            </b-field>
+            <b-field
+              label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
+              class="has-check"
+              horizontal
+            >
+              <radio-picker
+                v-model="customElementsForm.radio"
+                :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
+              >
+              </radio-picker>
+            </b-field>
+            <hr />
+          </div>
           <b-field label="ศาลที่อนุญาต" class="has-check" horizontal>
             <radio-picker
               v-model="customElementsForm.radio"
@@ -232,35 +235,73 @@
         </card-component> -->
       <!-- </tiles> -->
       <br />
-      <card-component title="ข้อมูลการฝากขัง" icon="ballot-outline">
-        <b-field label="Checkbox" class="has-check" horizontal>
-          <checkbox-picker
-            v-model="customElementsForm.checkbox"
-            :options="{ lorem: 'Lorem', ipsum: 'Ipsum', dolore: 'Dolore' }"
-            type="is-primary"
-          />
-        </b-field>
-        <hr />
-        <b-field label="Radio" class="has-check" horizontal>
-          <radio-picker
-            v-model="customElementsForm.radio"
-            :options="{ one: 'One', two: 'Two' }"
-          ></radio-picker>
-        </b-field>
-        <hr />
-        <b-field label="Switch" horizontal>
-          <b-switch v-model="customElementsForm.switch"> Default </b-switch>
-        </b-field>
-        <hr />
-        <b-field label="File" horizontal>
-          <file-picker v-model="customElementsForm.file" />
-        </b-field>
-      </card-component>
+      <tiles>
+        <card-component
+          title="ข้อมูลการฝากขัง"
+          icon="account"
+          class="tile is-child"
+        >
+          <user-avatar class="image has-max-width is-aligned-center" />
+          <hr />
+          <b-field label="ชื่อ - สกุล" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="เลขบัตรประจำตัวประชาชน" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="เพศ" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="อายุ" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="สัญชาติ" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <hr />
+          <b-field label="เลขคำร้องขอฝากขัง" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="วันที่ฝากขัง" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <hr />
+          <b-field label="ยื่นคำร้องขอปล่อยตัวชั่วคราว" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="นายประกันคือ" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="การอนุญาตปล่อยตัวชั่วคราว" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="ศาลที่ออกคำสั่ง" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="วันที่อนุญาตปล่อยตัวชั่วคราว" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <hr />
+          <b-field label="การสิ้นสุดสัญญาประกัน" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="สถานะผู้ต้องหา" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="หลักประกัน" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="วงเงินสัญญาประกัน" horizontal>
+            <b-input :value="userName" custom-class="is-static" readonly />
+          </b-field>
+        </card-component>
+      </tiles>
     </section>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
@@ -271,13 +312,15 @@ import CardComponent from '@/components/CardComponent'
 import RadioPicker from '@/components/RadioPicker'
 import CheckboxPicker from '@/components/CheckboxPicker'
 // import FilePicker from '@/components/FilePicker'
-// import UserAvatar from '@/components/UserAvatar'
+import UserAvatar from '@/components/UserAvatar'
+// import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import Notification from '@/components/Notification'
 
 export default {
   name: 'PrecaseForm',
   components: {
-    // UserAvatar,
+    UserAvatar,
+    // ProfileUpdateForm,
     // FilePicker,
     CardComponent,
     // Tiles,
@@ -300,6 +343,7 @@ export default {
         // switch: true,
         // file: null,
       },
+      showDiv: true,
     }
   },
   computed: {
@@ -330,7 +374,7 @@ export default {
     },
     heroRouterLinkLabel() {
       if (this.isProfileExists) {
-        return 'New client'
+        return 'เพิ่ม ข้อมูลชั้นฝากขัง'
       } else {
         return 'Dashboard'
       }
@@ -342,6 +386,7 @@ export default {
         return 'New Client'
       }
     },
+    ...mapState(['userName', 'userEmail']),
   },
   watch: {
     id(newValue) {
