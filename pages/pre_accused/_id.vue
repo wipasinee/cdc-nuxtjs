@@ -13,7 +13,6 @@
           <span><b>Demo only.</b> No data will be saved/updated</span>
         </div>
       </notification>
-      <!-- <tiles> -->
       <card-component
         :title="formCardTitle"
         icon="account-edit"
@@ -24,16 +23,6 @@
             <b-input v-model="form.id" custom-class="is-static" readonly />
           </b-field>
           <hr />
-          <!-- <b-field label="Avatar" horizontal>
-              <file-picker />
-            </b-field> -->
-          <!-- <hr /> -->
-          <!-- <b-field label="Name" message="Client name" horizontal>
-              <b-input
-                v-model="form.sector"
-                placeholder="e.g. John Doe"
-                required
-              /> -->
           <b-field label="รายชื่อผู้ต้องหาจากชั้นพนักงานสอบสวน *" horizontal>
             <b-select
               v-model="form.department"
@@ -195,45 +184,6 @@
           </b-field>
         </form>
       </card-component>
-      <!-- <card-component
-          v-if="isProfileExists"
-          title="ข้อมูลชั้นฝากขัง"
-          icon="account"
-          class="tile is-child"
-        >
-          <user-avatar
-            :avatar="form.avatar"
-            class="image has-max-width is-aligned-center"
-          />
-          <hr />
-          <b-field label="Name">
-            <b-input :value="form.sector" custom-class="is-static" readonly />
-          </b-field>
-          <b-field label="Company">
-            <b-input :value="form.company" custom-class="is-static" readonly />
-          </b-field>
-          <b-field label="City">
-            <b-input :value="form.city" custom-class="is-static" readonly />
-          </b-field>
-          <b-field label="Created">
-            <b-input
-              :value="createdReadable"
-              custom-class="is-static"
-              readonly
-            />
-          </b-field>
-          <hr />
-          <b-field label="Progress">
-            <progress
-              class="progress is-small is-primary"
-              :value="form.progress"
-              max="100"
-            >
-              {{ form.progress }}
-            </progress>
-          </b-field>
-        </card-component> -->
-      <!-- </tiles> -->
       <br />
       <tiles>
         <card-component
@@ -315,9 +265,8 @@ import CheckboxPicker from '@/components/CheckboxPicker'
 import UserAvatar from '@/components/UserAvatar'
 // import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import Notification from '@/components/Notification'
-
 export default {
-  name: 'PrecaseForm',
+  name: 'PreAccusedForm',
   components: {
     UserAvatar,
     // ProfileUpdateForm,
@@ -350,18 +299,18 @@ export default {
       let lastCrumb
 
       if (this.isProfileExists) {
-        lastCrumb = this.form.sector_desc.name
+        lastCrumb = this.form.name
       } else {
-        lastCrumb = 'New client'
+        lastCrumb = 'error nameจ้า'
       }
 
-      return ['Admin', 'ชั้นฝากขัง', lastCrumb]
+      return ['Admin', 'ผู้ต้องหา', lastCrumb]
     },
     heroTitle() {
       if (this.isProfileExists) {
-        return this.form.sector_desc.name
+        return this.form.name
       } else {
-        return 'Create Client'
+        return 'error nameจ้า'
       }
     },
     heroRouterLinkTo() {
@@ -373,16 +322,16 @@ export default {
     },
     heroRouterLinkLabel() {
       if (this.isProfileExists) {
-        return 'เพิ่ม ข้อมูลชั้นฝากขัง'
+        return 'เพิ่ม ผู้ต้องหา'
       } else {
         return 'Dashboard'
       }
     },
     formCardTitle() {
       if (this.isProfileExists) {
-        return 'แก้ไข ข้อมูลชั้นฝากขัง'
+        return 'แก้ไข ข้อมูลผู้ต้องหา'
       } else {
-        return 'New Client'
+        return 'แก้ไขข้อมูลผู้ต้องหา'
       }
     },
     ...mapState(['userName', 'userEmail']),
@@ -416,7 +365,7 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
-          .get(`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`)
+          .get(`http://10.1.2.32:8080/api/v1/before_accuses/pre_case/1332`)
           .then((r) => {
             const item = find(
               r.data.data,

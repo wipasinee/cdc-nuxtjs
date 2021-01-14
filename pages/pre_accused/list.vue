@@ -15,42 +15,13 @@
 
       <card-component
         class="has-table has-mobile-sort-spaced"
-        title="Clients"
+        title="ผู้ต้องหา"
         icon="account-multiple"
       >
-        <clients-table-sample
-          :data-url="`${$router.options.base}data-sources/clients.json`"
+        <pre-accused-table
+          :data-url="`http://10.1.2.32:8080/api/v1/before_accuses/pre_case/1332`"
           :checkable="true"
         />
-      </card-component>
-
-      <hr />
-
-      <notification class="is-info">
-        <div>
-          <b-icon icon="buffer" custom-size="default" />
-          <b>Tightly wrapped</b> &mdash; table header becomes card header
-        </div>
-      </notification>
-
-      <card-component class="has-table has-mobile-sort-spaced">
-        <clients-table-sample
-          :data-url="`${$router.options.base}data-sources/clients.json`"
-          :checkable="true"
-        />
-      </card-component>
-
-      <hr />
-
-      <notification class="is-info">
-        <div>
-          <b-icon icon="buffer" custom-size="default" />
-          <b>Empty table.</b> When there's nothing to show
-        </div>
-      </notification>
-
-      <card-component class="has-table">
-        <clients-table-sample />
       </card-component>
     </section>
   </div>
@@ -58,7 +29,8 @@
 
 <script>
 import Notification from '@/components/Notification'
-import ClientsTableSample from '@/components/ClientsTableSample'
+// import ClientsTableSample from '@/components/ClientsTableSample'
+import PreAccusedTable from '@/components/PreAccusedTable'
 import CardComponent from '@/components/CardComponent'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
@@ -68,7 +40,8 @@ export default {
     HeroBar,
     TitleBar,
     CardComponent,
-    ClientsTableSample,
+    // ClientsTableSample,
+    PreAccusedTable,
     Notification,
   },
   computed: {
