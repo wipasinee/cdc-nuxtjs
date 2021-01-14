@@ -187,7 +187,7 @@
       <br />
       <tiles>
         <card-component
-          title="ข้อมูลการฝากขัง"
+          title="ข้อมูลผู้ต้องหา"
           icon="account"
           class="tile is-child"
         >
