@@ -315,7 +315,7 @@ export default {
     },
     heroRouterLinkTo() {
       if (this.isProfileExists) {
-        return '/client'
+        return '/pre_accused/add'
       } else {
         return '/'
       }

@@ -18,7 +18,92 @@
         icon="account-edit"
         class="tile is-child"
       >
-        <form @submit.prevent="submit"></form>
+        <form @submit.prevent="submit">
+          <b-field label="ID" horizontal>
+            <b-input v-model="form.id" custom-class="is-static" readonly />
+          </b-field>
+          <hr />
+          <b-field label="ประเภทคดี" horizontal>
+            <b-select
+              v-model="form.department"
+              placeholder="Select a department"
+              required
+            >
+              <option
+                v-for="(department, index) in departments"
+                :key="index"
+                :value="department"
+              >
+                {{ department }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field label="เลขคดีดำ" horizontal>
+            <b-field>
+              <b-input
+                v-model="form.name"
+                icon="account"
+                placeholder="เลขคดีดำ[อักษรย่อ]*"
+                name="name"
+                required
+              />
+            </b-field>
+            <b-field>
+              <b-input
+                v-model="form.email"
+                icon="email"
+                type="email"
+                placeholder="เลขคดีดำ[ลำดับ]*"
+                name="email"
+                required
+              />
+            </b-field>
+            <b-field>
+              <b-input
+                v-model="form.email"
+                icon="email"
+                type="email"
+                placeholder="เลขคดีดำ[ปี]*"
+                name="email"
+                required
+              />
+            </b-field>
+          </b-field>
+          <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
+            <b-input
+              v-model="form.subject"
+              placeholder="e.g. Partnership proposal"
+              required
+            />
+          </b-field>
+          <b-field
+            label="หมายเหตุ"
+            message="Your question. Max 255 characters"
+            horizontal
+          >
+            <b-input
+              v-model="form.question"
+              type="textarea"
+              placeholder="Explain how we can help you"
+              maxlength="255"
+              required
+            />
+          </b-field>
+          <b-field horizontal>
+            <b-field grouped>
+              <div class="control">
+                <b-button native-type="submit" type="is-primary"
+                  >Submit</b-button
+                >
+              </div>
+              <div class="control">
+                <b-button type="is-primary is-outlined" @click="reset"
+                  >Reset</b-button
+                >
+              </div>
+            </b-field>
+          </b-field>
+        </form>
       </card-component>
       <br />
       <tiles>
@@ -26,14 +111,97 @@
           title="ข้อมูลการฝากขัง"
           icon="account"
           class="tile is-child"
-        ></card-component>
+        >
+          <b-field label="ประเภทคดี" horizontal>
+            <b-select
+              v-model="form.department"
+              placeholder="Select a department"
+              required
+            >
+              <option
+                v-for="(department, index) in departments"
+                :key="index"
+                :value="department"
+              >
+                {{ department }}
+              </option>
+            </b-select>
+          </b-field>
+          <b-field label="เลขคดีดำ" horizontal>
+            <b-field>
+              <b-input
+                v-model="form.black_abb"
+                icon="account"
+                placeholder="เลขคดีดำ[อักษรย่อ]*"
+                name="black_abb"
+                required
+              >
+                {{ black_abb }}
+              </b-input>
+            </b-field>
+            <b-field>
+              <b-input
+                v-model="form.email"
+                icon="email"
+                type="email"
+                placeholder="เลขคดีดำ[ลำดับ]*"
+                name="email"
+                required
+              />
+            </b-field>
+            <b-field>
+              <b-input
+                v-model="form.email"
+                icon="email"
+                type="email"
+                placeholder="เลขคดีดำ[ปี]*"
+                name="email"
+                required
+              />
+            </b-field>
+          </b-field>
+          <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
+            <b-input
+              v-model="form.subject"
+              placeholder="e.g. Partnership proposal"
+              required
+            />
+          </b-field>
+          <b-field
+            label="หมายเหตุ"
+            message="Your question. Max 255 characters"
+            horizontal
+          >
+            <b-input
+              v-model="form.question"
+              type="textarea"
+              placeholder="Explain how we can help you"
+              maxlength="255"
+              required
+            />
+          </b-field>
+          <b-field horizontal>
+            <b-field grouped>
+              <div class="control">
+                <b-button native-type="submit" type="is-primary"
+                  >Submit</b-button
+                >
+              </div>
+              <div class="control">
+                <b-button type="is-primary is-outlined" @click="reset"
+                  >Reset</b-button
+                >
+              </div>
+            </b-field>
+          </b-field>
+        </card-component>
       </tiles>
     </section>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
@@ -69,12 +237,12 @@ export default {
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
-      customElementsForm: {
-        checkbox: [],
-        radio: null,
-        // switch: true,
-        // file: null,
-      },
+      // customElementsForm: {
+      //   checkbox: [],
+      //   radio: null,
+      //   switch: true,
+      //   file: null,
+      // },
     }
   },
   computed: {
@@ -93,12 +261,12 @@ export default {
       if (this.isProfileExists) {
         return this.form.sector_desc.name
       } else {
-        return 'Create Client'
+        return 'Error'
       }
     },
     heroRouterLinkTo() {
       if (this.isProfileExists) {
-        return '/client'
+        return '/pre_case/add'
       } else {
         return '/'
       }
@@ -114,10 +282,10 @@ export default {
       if (this.isProfileExists) {
         return 'แก้ไข ข้อมูลชั้นฝากขัง'
       } else {
-        return 'New Client'
+        return 'แก้ไขข้อมูลชั้นฝากขัง'
       }
     },
-    ...mapState(['userName', 'userEmail']),
+    // ...mapState(['userName', 'userEmail']),
   },
   watch: {
     id(newValue) {
