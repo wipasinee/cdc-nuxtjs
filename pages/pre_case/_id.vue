@@ -180,20 +180,6 @@
               required
             />
           </b-field>
-          <b-field horizontal>
-            <b-field grouped>
-              <div class="control">
-                <b-button native-type="submit" type="is-primary"
-                  >Submit</b-button
-                >
-              </div>
-              <div class="control">
-                <b-button type="is-primary is-outlined" @click="reset"
-                  >Reset</b-button
-                >
-              </div>
-            </b-field>
-          </b-field>
         </card-component>
       </tiles>
     </section>
@@ -252,7 +238,7 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.sector_desc.name
       } else {
-        lastCrumb = 'New client'
+        lastCrumb = 'error จ้า'
       }
 
       return ['Admin', 'ชั้นฝากขัง', lastCrumb]
@@ -261,7 +247,7 @@ export default {
       if (this.isProfileExists) {
         return this.form.sector_desc.name
       } else {
-        return 'Error'
+        return 'error จ้า'
       }
     },
     heroRouterLinkTo() {

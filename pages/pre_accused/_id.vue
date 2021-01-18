@@ -70,46 +70,43 @@
             <radio-picker
               v-model="customElementsForm.radio"
               :options="{ one: 'ยื่น', two: 'ไม่ยื่น' }"
-              @click="showDiv = !showDiv"
             >
             </radio-picker>
           </b-field>
           <hr />
-          <div v-if="showDiv">
-            <b-field
-              label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
-              class="has-check"
-              horizontal
+          <b-field
+            label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
+            class="has-check"
+            horizontal
+          >
+            <checkbox-picker
+              v-model="customElementsForm.checkbox"
+              :options="{
+                lorem: 'ไม่ระบุ',
+                ipsum: 'บิดา',
+                dolore: 'มารดา',
+                a: 'ภรรยา',
+                b: 'บุตร',
+                c: 'นายประกันอาชีพ',
+                d: 'ญาติ',
+                e: 'ประกันตนเอง',
+                f: 'นายจ้าง',
+              }"
+              type="is-primary"
+            />
+          </b-field>
+          <b-field
+            label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
+            class="has-check"
+            horizontal
+          >
+            <radio-picker
+              v-model="customElementsForm.radio"
+              :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
             >
-              <checkbox-picker
-                v-model="customElementsForm.checkbox"
-                :options="{
-                  lorem: 'ไม่ระบุ',
-                  ipsum: 'บิดา',
-                  dolore: 'มารดา',
-                  a: 'ภรรยา',
-                  b: 'บุตร',
-                  c: 'นายประกันอาชีพ',
-                  d: 'ญาติ',
-                  e: 'ประกันตนเอง',
-                  f: 'นายจ้าง',
-                }"
-                type="is-primary"
-              />
-            </b-field>
-            <b-field
-              label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
-              class="has-check"
-              horizontal
-            >
-              <radio-picker
-                v-model="customElementsForm.radio"
-                :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
-              >
-              </radio-picker>
-            </b-field>
-            <hr />
-          </div>
+            </radio-picker>
+          </b-field>
+          <hr />
           <b-field label="ศาลที่อนุญาต" class="has-check" horizontal>
             <radio-picker
               v-model="customElementsForm.radio"
