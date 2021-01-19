@@ -74,46 +74,48 @@
             </radio-picker>
           </b-field>
           <hr />
-          <b-field
-            label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
-            class="has-check"
-            horizontal
-          >
-            <checkbox-picker
-              v-model="customElementsForm.checkbox"
-              :options="{
-                lorem: 'ไม่ระบุ',
-                ipsum: 'บิดา',
-                dolore: 'มารดา',
-                a: 'ภรรยา',
-                b: 'บุตร',
-                c: 'นายประกันอาชีพ',
-                d: 'ญาติ',
-                e: 'ประกันตนเอง',
-                f: 'นายจ้าง',
-              }"
-              type="is-primary"
-            />
-          </b-field>
-          <b-field
-            label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
-            class="has-check"
-            horizontal
-          >
-            <radio-picker
-              v-model="customElementsForm.radio"
-              :options="{ one: 'อนุญาต', two: 'ไม่อนุญาต' }"
+          <div id="app">
+            <b-field
+              label="ความสัมพันธ์ระหว่างผู้ต้องหากับผู้ขอปล่อยชั่วคราว (นายประกัน)"
+              class="has-check"
+              horizontal
             >
-            </radio-picker>
-          </b-field>
+              <checkbox-picker
+                v-model="customElementsForm.checkbox"
+                :options="{
+                  lorem: 'ไม่ระบุ',
+                  ipsum: 'บิดา',
+                  dolore: 'มารดา',
+                  a: 'ภรรยา',
+                  b: 'บุตร',
+                  c: 'นายประกันอาชีพ',
+                  d: 'ญาติ',
+                  e: 'ประกันตนเอง',
+                  f: 'นายจ้าง',
+                }"
+                type="is-primary"
+              />
+            </b-field>
+            <b-field
+              label="อนุญาตปล่อยตัวชั่วคราว หรือไม่"
+              class="has-check"
+              horizontal
+            >
+              <radio-picker
+                v-model="customElementsForm.radio"
+                :options="{ A: 'อนุญาต', B: 'ไม่อนุญาต' }"
+              >
+              </radio-picker>
+            </b-field>
+          </div>
           <hr />
           <b-field label="ศาลที่อนุญาต" class="has-check" horizontal>
             <radio-picker
               v-model="customElementsForm.radio"
               :options="{
-                one: 'ศาลชั้นต้น',
-                two: 'ศาลอุทธรณ์',
-                three: 'ศาลฎีกา',
+                P: 'ศาลชั้นต้น',
+                I: 'ศาลอุทธรณ์',
+                E: 'ศาลฎีกา',
               }"
             >
             </radio-picker>
@@ -133,9 +135,9 @@
             <radio-picker
               v-model="customElementsForm.radio"
               :options="{
-                one: 'หลบหนี',
-                two: 'ถอนประกัน',
-                three: 'อยู๋ระหว่างประกัน',
+                W: 'หลบหนี',
+                F: 'ถอนประกัน',
+                N: 'อยู๋ระหว่างประกัน',
               }"
             >
             </radio-picker>
@@ -163,9 +165,9 @@
             <radio-picker
               v-model="customElementsForm.radio"
               :options="{
-                one: 'หลบหนี',
-                two: 'ถอนประกัน',
-                three: 'อยู่ระหว่างประกัน',
+                Q: 'หลบหนี',
+                U: 'ถอนประกัน',
+                L: 'อยู่ระหว่างประกัน',
               }"
             >
             </radio-picker>
@@ -301,7 +303,7 @@ export default {
         lastCrumb = 'error nameจ้า'
       }
 
-      return ['Admin', 'ผู้ต้องหา', lastCrumb]
+      return ['ชั้นฝากขัง', 'ผู้ต้องหา', lastCrumb]
     },
     heroTitle() {
       if (this.isProfileExists) {

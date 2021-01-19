@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     titleStack() {
-      return ['Admin', 'ข้อมูลชั้นฝากขัง']
+      return ['ชั้นฝากขัง', 'ข้อมูลชั้นฝากขัง']
     },
   },
   head() {

@@ -96,98 +96,16 @@
                   >Submit</b-button
                 >
               </div>
-              <div class="control">
-                <b-button type="is-primary is-outlined" @click="reset"
-                  >Reset</b-button
-                >
-              </div>
             </b-field>
           </b-field>
         </form>
       </card-component>
-      <br />
-      <tiles>
-        <card-component
-          title="ข้อมูลการฝากขัง"
-          icon="account"
-          class="tile is-child"
-        >
-          <b-field label="ประเภทคดี" horizontal>
-            <b-select
-              v-model="form.department"
-              placeholder="Select a department"
-              required
-            >
-              <option
-                v-for="(department, index) in departments"
-                :key="index"
-                :value="department"
-              >
-                {{ department }}
-              </option>
-            </b-select>
-          </b-field>
-          <b-field label="เลขคดีดำ" horizontal>
-            <b-field>
-              <b-input
-                v-model="form.black_abb"
-                icon="account"
-                placeholder="เลขคดีดำ[อักษรย่อ]*"
-                name="black_abb"
-                required
-              >
-                {{ black_abb }}
-              </b-input>
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="form.email"
-                icon="email"
-                type="email"
-                placeholder="เลขคดีดำ[ลำดับ]*"
-                name="email"
-                required
-              />
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="form.email"
-                icon="email"
-                type="email"
-                placeholder="เลขคดีดำ[ปี]*"
-                name="email"
-                required
-              />
-            </b-field>
-          </b-field>
-          <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
-            <b-input
-              v-model="form.subject"
-              placeholder="e.g. Partnership proposal"
-              required
-            />
-          </b-field>
-          <b-field
-            label="หมายเหตุ"
-            message="Your question. Max 255 characters"
-            horizontal
-          >
-            <b-input
-              v-model="form.question"
-              type="textarea"
-              placeholder="Explain how we can help you"
-              maxlength="255"
-              required
-            />
-          </b-field>
-        </card-component>
-      </tiles>
     </section>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
@@ -201,7 +119,6 @@ import CardComponent from '@/components/CardComponent'
 // import UserAvatar from '@/components/UserAvatar'
 // import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import Notification from '@/components/Notification'
-
 export default {
   name: 'PrecaseForm',
   components: {
@@ -223,12 +140,12 @@ export default {
       form: this.getClearFormObject(),
       createdReadable: null,
       isProfileExists: false,
-      // customElementsForm: {
-      //   checkbox: [],
-      //   radio: null,
-      //   switch: true,
-      //   file: null,
-      // },
+      customElementsForm: {
+        checkbox: [],
+        radio: null,
+        // switch: true,
+        // file: null,
+      },
     }
   },
   computed: {
@@ -238,16 +155,16 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.sector_desc.name
       } else {
-        lastCrumb = 'error จ้า'
+        lastCrumb = 'error nameจ้า'
       }
 
-      return ['Admin', 'ชั้นฝากขัง', lastCrumb]
+      return ['ชั้นฝากขัง', 'ผู้ต้องหา', lastCrumb]
     },
     heroTitle() {
       if (this.isProfileExists) {
         return this.form.sector_desc.name
       } else {
-        return 'error จ้า'
+        return 'error nameจ้า'
       }
     },
     heroRouterLinkTo() {
@@ -271,7 +188,7 @@ export default {
         return 'แก้ไขข้อมูลชั้นฝากขัง'
       }
     },
-    // ...mapState(['userName', 'userEmail']),
+    ...mapState(['userName', 'userEmail']),
   },
   watch: {
     id(newValue) {

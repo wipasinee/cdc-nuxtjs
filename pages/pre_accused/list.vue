@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     titleStack() {
-      return ['Admin', 'ข้อมูลผู้ต้องหา']
+      return ['ชั้นฝากขัง', 'ข้อมูลผู้ต้องหา']
     },
   },
   head() {
