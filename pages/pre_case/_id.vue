@@ -25,60 +25,63 @@
           <hr />
           <b-field label="ประเภทคดี" horizontal>
             <b-select
-              v-model="form.department"
-              placeholder="Select a department"
+              v-model="form.casetype"
+              placeholder="เลือกประเภทคดี"
               required
             >
               <option
-                v-for="(department, index) in departments"
+                v-for="(casetype, index) in casetype"
                 :key="index"
-                :value="department"
+                :value="casetype"
               >
-                {{ department }}
+                {{ casetype }}
               </option>
             </b-select>
           </b-field>
           <b-field label="เลขคดีดำ" horizontal>
             <b-field>
               <b-input
-                v-model="form.name"
+                v-model="form.black_abb"
                 icon="account"
                 placeholder="เลขคดีดำ[อักษรย่อ]*"
-                name="name"
+                name="black_abb"
                 required
               />
             </b-field>
             <b-field>
               <b-input
-                v-model="form.email"
+                v-model="form.black_no"
                 icon="email"
                 type="email"
                 placeholder="เลขคดีดำ[ลำดับ]*"
-                name="email"
+                name="black_no"
                 required
               />
             </b-field>
             <b-field>
               <b-input
-                v-model="form.email"
+                v-model="form.black_year"
                 icon="email"
                 type="email"
                 placeholder="เลขคดีดำ[ปี]*"
-                name="email"
+                name="black_year"
                 required
               />
             </b-field>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
-              v-model="form.subject"
+              v-model="form.requester_name"
               placeholder="e.g. Partnership proposal"
+              name="requester_name"
               required
             />
           </b-field>
           <b-field
+            v-model="form.comment"
             label="หมายเหตุ"
             message="Your question. Max 255 characters"
+            name="comment"
             horizontal
           >
             <b-input
@@ -105,7 +108,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
@@ -158,7 +161,7 @@ export default {
         lastCrumb = 'error nameจ้า'
       }
 
-      return ['ชั้นฝากขัง', 'ผู้ต้องหา', lastCrumb]
+      return ['ชั้นฝากขัง', 'ข้อมูลฝากขัง', lastCrumb]
     },
     heroTitle() {
       if (this.isProfileExists) {
@@ -188,7 +191,7 @@ export default {
         return 'แก้ไขข้อมูลชั้นฝากขัง'
       }
     },
-    ...mapState(['userName', 'userEmail']),
+    // ...mapState(['userName', 'userEmail']),
   },
   watch: {
     id(newValue) {
@@ -208,12 +211,13 @@ export default {
     getClearFormObject() {
       return {
         id: null,
-        sector: null,
-        company: null,
-        city: null,
+        casetype: null,
+        black_abb: null,
+        black_no: null,
+        requester_name: null,
+        comment: null,
         created_date: new Date(),
         created_mm_dd_yyyy: null,
-        progress: 0,
       }
     },
     getData() {
