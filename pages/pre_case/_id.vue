@@ -223,7 +223,7 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
-          .get(`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`)
+          .get(`${this.$axios.defaults.baseURL}/api/v1/pre_cases/sector/102`)
           .then((r) => {
             const item = find(
               r.data.data,

@@ -12,7 +12,7 @@
         icon="account-multiple"
       >
         <precase-table
-          :data-url="`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`"
+          :data-url="`${this.$axios.defaults.baseURL}/api/v1/pre_cases/sector/102`"
           :checkable="true"
         />
       </card-component>

@@ -19,7 +19,7 @@
         icon="account-multiple"
       >
         <pre-accused-table
-          :data-url="`http://10.1.2.32:8080/api/v1/before_accuses/pre_case/1332`"
+          :data-url="`${this.$axios.defaults.baseURL}/api/v1/before_accuses/pre_case/1332`"
           :checkable="true"
         />
       </card-component>
