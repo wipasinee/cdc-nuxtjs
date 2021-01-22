@@ -24,20 +24,14 @@
             </b-select>
           </b-field>
           <b-field label="เลขคดีดำ" horizontal>
+            <b-select placeholder="เลือก อักษรย่อเลขคดีดำ" required>
+              <option>ผ</option>
+              <option>ฝ</option>
+            </b-select>
             <b-field>
               <b-input
-                v-model="form.name"
-                icon="account"
-                placeholder="เลขคดีดำ[อักษรย่อ]*"
-                name="name"
-                required
-              />
-            </b-field>
-            <b-field>
-              <b-input
-                v-model="form.email"
                 icon="email"
-                type="email"
+                type="number"
                 placeholder="เลขคดีดำ[ลำดับ]*"
                 name="email"
                 required
@@ -45,14 +39,25 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="form.email"
+                v-model="black_year"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="4"
                 icon="email"
-                type="email"
+                type="number"
                 placeholder="เลขคดีดำ[ปี]*"
-                name="email"
+                name="black_year"
                 required
               />
             </b-field>
+          </b-field>
+          <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
+            <b-input
+              id="vueRoot"
+              name="date"
+              type="date"
+              placeholder="e.g. Partnership proposal"
+              required
+            />
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input

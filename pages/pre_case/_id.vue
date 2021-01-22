@@ -25,16 +25,16 @@
           <hr />
           <b-field label="ประเภทคดี" horizontal>
             <b-select
-              v-model="form.casetype"
+              v-model="form.casetype_desc"
               placeholder="เลือกประเภทคดี"
               required
             >
               <option
-                v-for="(casetype, index) in casetype"
+                v-for="(casetype_desc, index) in casetype_desc"
                 :key="index"
-                :value="casetype"
+                :value="casetype_desc.id"
               >
-                {{ casetype }}
+                {{ casetype_desc.name }}
               </option>
             </b-select>
           </b-field>
