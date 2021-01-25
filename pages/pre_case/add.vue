@@ -57,6 +57,12 @@
               placeholder="e.g. Partnership proposal"
               required
             />
+            <div id="app">
+              <div class="center">
+                <h1>Select a date</h1>
+                <Datepicker v-model="date"></Datepicker>
+              </div>
+            </div>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
@@ -99,6 +105,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
 import mapValues from 'lodash/mapValues'
 import TitleBar from '@/components/TitleBar'
 import CardComponent from '@/components/CardComponent'
@@ -115,6 +122,7 @@ export default {
     // CheckboxPicker,
     CardComponent,
     TitleBar,
+    Datepicker,
   },
   data() {
     return {
@@ -134,6 +142,7 @@ export default {
       //   file: null,
       // },
       departments: ['Business Development', 'Marketing', 'Sales'],
+      date: new Date(),
     }
   },
   computed: {

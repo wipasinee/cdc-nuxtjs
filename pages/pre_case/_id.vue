@@ -25,16 +25,16 @@
           <hr />
           <b-field label="ประเภทคดี" horizontal>
             <b-select
-              v-model="form.casetype_desc"
+              v-model="form.casetypes"
               placeholder="เลือกประเภทคดี"
               required
             >
               <option
-                v-for="(casetype_desc, index) in casetype_desc"
+                v-for="(casetype, index) in casetypes"
                 :key="index"
-                :value="casetype_desc.id"
+                :selected="casetype.id == form.casetype"
               >
-                {{ casetype_desc.name }}
+                {{ casetype.id }}{{ casetype.name }}
               </option>
             </b-select>
           </b-field>
@@ -211,7 +211,8 @@ export default {
     getClearFormObject() {
       return {
         id: null,
-        casetype_desc: null,
+        casetypes: [],
+        // casetypes_id:null,
         black_abb: null,
         black_no: null,
         requester_name: null,
@@ -223,6 +224,20 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
+          .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
+          .then((r) => {
+            console.log(r.data.data)
+            this.casetypes = r.data.data
+          })
+          .catch((e) => {
+            this.$buefy.toast.open({
+              message: `Error: ${e.message}`,
+              type: 'is-danger',
+              queue: false,
+            })
+          })
+
+        axios
           .get(`${this.$axios.defaults.baseURL}/api/v1/pre_cases/sector/102`)
           .then((r) => {
             const item = find(
@@ -232,6 +247,7 @@ export default {
 
             if (item) {
               this.isProfileExists = true
+              console.log(item)
               this.form = item
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(

@@ -24,7 +24,8 @@
     "numeral": "^2.0.6",
     "nuxt": "^2.14.3",
     "nuxt-buefy": "^0.3.31",
-    "vue-chartjs": "^3.5.0"
+    "vue-chartjs": "^3.5.0",
+    "vuejs-datepicker": "^1.6.2"
   },
   "devDependencies": {
     "@nuxt/types": "^2.14.3",
