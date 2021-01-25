@@ -95,7 +95,12 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    // Local //
+    // baseURL: 'http://localhost:8888',
+    // Product //
+    baseURL: 'http://10.1.2.32:8080/',
+  },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

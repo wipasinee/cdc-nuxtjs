@@ -61,7 +61,10 @@
             class="has-check"
             horizontal
           >
-            <radio-picker :options="{ one: 'ยื่น', two: 'ไม่ยื่น' }">
+            <radio-picker
+              :options="{ one: 'ยื่น', two: 'ไม่ยื่น' }"
+              @click="show = !show"
+            >
             </radio-picker>
           </b-field>
           <hr />

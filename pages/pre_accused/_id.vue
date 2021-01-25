@@ -364,7 +364,9 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
-          .get(`http://10.1.2.32:8080/api/v1/before_accuses/pre_case/1332`)
+          .get(
+            `${this.$axios.defaults.baseURL}/api/v1/before_accuses/pre_case/1332`
+          )
           .then((r) => {
             const item = find(
               r.data.data,

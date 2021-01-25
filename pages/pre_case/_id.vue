@@ -30,9 +30,9 @@
               required
             >
               <option
-                v-for="(casetype_desc, index) in data"
+                v-for="(casetype_desc, index) in casetype_desc"
                 :key="index"
-                :value="casetype_desc.name"
+                :value="casetype_desc.id"
               >
                 {{ casetype_desc.name }}
               </option>
@@ -223,7 +223,7 @@ export default {
     getData() {
       if (this.$route.params.id) {
         axios
-          .get(`http://10.1.2.32:8080/api/v1/pre_cases/sector/102`)
+          .get(`${this.$axios.defaults.baseURL}/api/v1/pre_cases/sector/102`)
           .then((r) => {
             const item = find(
               r.data.data,

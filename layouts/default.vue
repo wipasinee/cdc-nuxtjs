@@ -43,50 +43,90 @@ export default {
             label: 'ผู้ต้องหา',
             icon: 'account-circle',
           },
-          {
-            to: '/tables',
-            label: 'Tables',
-            icon: 'table',
-            updateMark: true,
-          },
-          {
-            to: '/forms',
-            label: 'Forms',
-            icon: 'square-edit-outline',
-          },
-          {
-            to: '/profile',
-            label: 'Profile',
-            icon: 'account-circle',
-          },
-          {
-            label: 'Submenus',
-            subLabel: 'Submenus Example',
-            icon: 'view-list',
-            menu: [
-              {
-                href: '#void',
-                label: 'Sub-item One',
-              },
-              {
-                href: '#void',
-                label: 'Sub-item Two',
-              },
-            ],
-          },
+          // {
+          //   to: '/tables',
+          //   label: 'Tables',
+          //   icon: 'table',
+          //   updateMark: true,
+          // },
+          // {
+          //   to: '/forms',
+          //   label: 'Forms',
+          //   icon: 'square-edit-outline',
+          // },
+          // {
+          //   to: '/profile',
+          //   label: 'Profile',
+          //   icon: 'account-circle',
+          // },
+          // {
+          //   label: 'Submenus',
+          //   subLabel: 'Submenus Example',
+          //   icon: 'view-list',
+          //   menu: [
+          //     {
+          //       href: '#void',
+          //       label: 'Sub-item One',
+          //     },
+          //     {
+          //       href: '#void',
+          //       label: 'Sub-item Two',
+          //     },
+          //   ],
+          // },
         ],
         'ชั้นข้อมูลคดี',
         [
           {
-            href: 'https://admin-one-nuxt.justboil.me',
-            label: 'Premium Demo',
-            icon: 'credit-card',
+            to: '/case/accused',
+            label: 'จำเลย',
+            icon: 'mdi mdi-account-multiple',
           },
           {
-            href: 'https://justboil.me/bulma-admin-template/one-nuxt',
-            label: 'About',
+            to: '/case/',
+            label: 'โจทก์',
+            icon: 'account-circle',
+          },
+          {
+            to: '/case/judgement',
+            label: 'ชั้นพิจารณา',
             icon: 'help-circle',
           },
+          {
+            to: '/case/release',
+            label: 'ประกันตัว(ชั้นพิจารณา)',
+            icon: 'mdi mdi-lock-reset default',
+          },
+          {
+            to: '/case/appoint',
+            label: 'สืบพยานล่วงหน้า',
+            icon: 'square-edit-outline',
+          },
+          {
+            to: '/case/',
+            label: 'ผลการพิจารณา',
+            icon: 'mdi mdi-view-list default',
+          },
+          {
+            to: '/case/appeal',
+            label: 'ชั้นอุทธรณ์',
+            icon: 'mdi mdi-animation-outline default',
+          },
+          {
+            to: '/case/supreme',
+            label: 'ชั้นฏีกา',
+            icon: 'mdi mdi-bell',
+          },
+          // {
+          //   href: 'https://admin-one-nuxt.justboil.me',
+          //   label: 'Premium Demo',
+          //   icon: 'credit-card',
+          // },
+          // {
+          //   href: 'https://justboil.me/bulma-admin-template/one-nuxt',
+          //   label: 'About',
+          //   icon: 'help-circle',
+          // },
         ],
       ]
     },
