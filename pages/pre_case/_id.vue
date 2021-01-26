@@ -25,34 +25,33 @@
           <hr />
           <b-field label="ประเภทคดี" horizontal>
             <b-select
-              v-model="form.casetypes"
+              v-model="form.casetype"
               placeholder="เลือกประเภทคดี"
               required
             >
               <option
                 v-for="(casetype, index) in casetypes"
                 :key="index"
-                :selected="casetype.id == form.casetype"
+                :value="casetype.id"
+                :selected="casetype.id"
               >
-                {{ casetype.id }}{{ casetype.name }}
+                {{ casetype.name }}
               </option>
             </b-select>
           </b-field>
           <b-field label="เลขคดีดำ" horizontal>
-            <b-field>
-              <b-input
-                v-model="form.black_abb"
-                icon="account"
-                placeholder="เลขคดีดำ[อักษรย่อ]*"
-                name="black_abb"
-                required
-              />
-            </b-field>
+            <b-select
+              v-model="form.black_abb"
+              placeholder="เลือกประเภทคดี"
+              required
+            >
+              <option value="ผ">ผ</option>
+              <option value="ฝ">ฝ</option>
+            </b-select>
             <b-field>
               <b-input
                 v-model="form.black_no"
-                icon="email"
-                type="email"
+                type="number"
                 placeholder="เลขคดีดำ[ลำดับ]*"
                 name="black_no"
                 required
@@ -61,13 +60,28 @@
             <b-field>
               <b-input
                 v-model="form.black_year"
-                icon="email"
-                type="email"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="4"
+                type="number"
                 placeholder="เลขคดีดำ[ปี]*"
                 name="black_year"
                 required
               />
             </b-field>
+          </b-field>
+          <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
+            <b-input
+              name="date"
+              type="date"
+              placeholder="e.g. Partnership proposal"
+              required
+            />
+            <div id="app">
+              <div class="center">
+                <h1>Select a date</h1>
+                <Datepicker v-model="date" />
+              </div>
+            </div>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
@@ -109,32 +123,22 @@
 
 <script>
 // import { mapState } from 'vuex'
+import Datepicker from 'vuejs-datepicker'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
 import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
-// import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-// import RadioPicker from '@/components/RadioPicker'
-// import CheckboxPicker from '@/components/CheckboxPicker'
-// import FilePicker from '@/components/FilePicker'
-// import UserAvatar from '@/components/UserAvatar'
-// import ProfileUpdateForm from '@/components/ProfileUpdateForm'
 import Notification from '@/components/Notification'
 export default {
   name: 'PrecaseForm',
   components: {
-    // UserAvatar,
-    // ProfileUpdateForm,
-    // FilePicker,
     CardComponent,
-    // Tiles,
     HeroBar,
     TitleBar,
     Notification,
-    // RadioPicker,
-    // CheckboxPicker,
+    Datepicker,
   },
   data() {
     return {
@@ -146,9 +150,8 @@ export default {
       customElementsForm: {
         checkbox: [],
         radio: null,
-        // switch: true,
-        // file: null,
       },
+      date: new Date(),
     }
   },
   computed: {
@@ -212,9 +215,10 @@ export default {
       return {
         id: null,
         casetypes: [],
-        // casetypes_id:null,
+        casetype: null,
         black_abb: null,
         black_no: null,
+        black_yaer: null,
         requester_name: null,
         comment: null,
         created_date: new Date(),

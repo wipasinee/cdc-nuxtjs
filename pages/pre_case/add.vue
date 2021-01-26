@@ -10,30 +10,34 @@
         <form @submit.prevent="submit">
           <b-field label="ประเภทคดี" horizontal>
             <b-select
-              v-model="form.department"
-              placeholder="Select a department"
+              v-model="form.casetype"
+              name="casetype"
+              placeholder="เลือกประเภทคดี"
               required
             >
               <option
-                v-for="(department, index) in departments"
+                v-for="(casetype, index) in casetypes"
                 :key="index"
-                :value="department"
+                :value="casetype.id"
               >
-                {{ department }}
+                {{ casetype.name }}
               </option>
             </b-select>
           </b-field>
           <b-field label="เลขคดีดำ" horizontal>
-            <b-select placeholder="เลือก อักษรย่อเลขคดีดำ" required>
-              <option>ผ</option>
-              <option>ฝ</option>
+            <b-select
+              name="black_abb"
+              placeholder="เลือก อักษรย่อเลขคดีดำ"
+              required
+            >
+              <option value="ผ">ผ</option>
+              <option value="ฝ">ฝ</option>
             </b-select>
             <b-field>
               <b-input
-                icon="email"
+                name="black_no"
                 type="number"
                 placeholder="เลขคดีดำ[ลำดับ]*"
-                name="email"
                 required
               />
             </b-field>
@@ -42,7 +46,6 @@
                 v-model="black_year"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                 maxlength="4"
-                icon="email"
                 type="number"
                 placeholder="เลขคดีดำ[ปี]*"
                 name="black_year"
@@ -105,21 +108,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Datepicker from 'vuejs-datepicker'
 import mapValues from 'lodash/mapValues'
 import TitleBar from '@/components/TitleBar'
 import CardComponent from '@/components/CardComponent'
-// import CheckboxPicker from '@/components/CheckboxPicker'
-// import RadioPicker from '@/components/RadioPicker'
-// import FilePicker from '@/components/FilePicker'
 import HeroBar from '@/components/HeroBar'
 export default {
   name: 'Add',
   components: {
     HeroBar,
-    // FilePicker,
-    // RadioPicker,
-    // CheckboxPicker,
     CardComponent,
     TitleBar,
     Datepicker,
@@ -128,20 +126,17 @@ export default {
     return {
       isLoading: false,
       form: {
-        name: null,
-        email: null,
-        phone: null,
-        department: null,
-        subject: null,
-        question: null,
+        id: null,
+        casetypes: [],
+        casetype: null,
+        black_abb: null,
+        black_no: null,
+        black_yaer: null,
+        requester_name: null,
+        comment: null,
+        created_date: new Date(),
+        created_mm_dd_yyyy: null,
       },
-      // customElementsForm: {
-      //   checkbox: [],
-      //   radio: null,
-      //   switch: true,
-      //   file: null,
-      // },
-      departments: ['Business Development', 'Marketing', 'Sales'],
       date: new Date(),
     }
   },
@@ -164,6 +159,21 @@ export default {
         message: 'Reset successfully',
         queue: false,
       })
+    },
+    getData() {
+      axios
+        .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
+        .then((r) => {
+          console.log(r.data.data)
+          this.casetypes = r.data.data
+        })
+        .catch((e) => {
+          this.$buefy.toast.open({
+            message: `Error: ${e.message}`,
+            type: 'is-danger',
+            queue: false,
+          })
+        })
     },
   },
   head() {
