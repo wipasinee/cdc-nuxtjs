@@ -54,18 +54,11 @@
             </b-field>
           </b-field>
           <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
-            <b-input
-              name="date"
-              type="date"
+            <b-datepicker
+              v-model="date"
               placeholder="e.g. Partnership proposal"
               required
-            />
-            <div id="app">
-              <div class="center">
-                <h1>Select a date</h1>
-                <Datepicker v-model="date"></Datepicker>
-              </div>
-            </div>
+            ></b-datepicker>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
@@ -109,7 +102,6 @@
 
 <script>
 import axios from 'axios'
-import Datepicker from 'vuejs-datepicker'
 import mapValues from 'lodash/mapValues'
 import TitleBar from '@/components/TitleBar'
 import CardComponent from '@/components/CardComponent'
@@ -120,23 +112,22 @@ export default {
     HeroBar,
     CardComponent,
     TitleBar,
-    Datepicker,
   },
   data() {
     return {
-      isLoading: false,
-      form: {
-        id: null,
-        casetypes: [],
-        casetype: null,
-        black_abb: null,
-        black_no: null,
-        black_yaer: null,
-        requester_name: null,
-        comment: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
-      },
+      form: this.getFormObject(),
+      // form: {
+      //   id: null,
+      //   casetypes: [],
+      //   casetype: null,
+      //   black_abb: null,
+      //   black_no: null,
+      //   black_yaer: null,
+      //   requester_name: null,
+      //   comment: null,
+      //   created_date: new Date(),
+      //   created_mm_dd_yyyy: null,
+      // },
       date: new Date(),
     }
   },
@@ -145,7 +136,16 @@ export default {
       return ['ชั้นฝากขัง', 'เพิ่มข้อมูลชั้นฝากขัง']
     },
   },
+  mounted() {
+    this.getData()
+  },
   methods: {
+    getFormObject() {
+      return {
+        casetypes: [],
+        casetype: null,
+      }
+    },
     submit() {},
     reset() {
       this.form = mapValues(this.form, (item) => {

@@ -70,18 +70,11 @@
             </b-field>
           </b-field>
           <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
-            <b-input
-              name="date"
-              type="date"
+            <b-datepicker
+              v-model="date"
               placeholder="e.g. Partnership proposal"
               required
             />
-            <div id="app">
-              <div class="center">
-                <h1>Select a date</h1>
-                <Datepicker v-model="date" />
-              </div>
-            </div>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
@@ -103,7 +96,6 @@
               type="textarea"
               placeholder="Explain how we can help you"
               maxlength="255"
-              required
             />
           </b-field>
           <b-field horizontal>
@@ -123,7 +115,6 @@
 
 <script>
 // import { mapState } from 'vuex'
-import Datepicker from 'vuejs-datepicker'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import find from 'lodash/find'
@@ -138,7 +129,6 @@ export default {
     HeroBar,
     TitleBar,
     Notification,
-    Datepicker,
   },
   data() {
     return {
