@@ -26,8 +26,9 @@
           </b-field>
           <b-field label="เลขคดีดำ" horizontal>
             <b-select
+              v-model="form.black_abb"
               name="black_abb"
-              placeholder="เลือก อักษรย่อเลขคดีดำ"
+              placeholder="เลือก เลขคดีดำ[อักษรย่อ]*"
               required
             >
               <option value="ผ">ผ</option>
@@ -35,6 +36,7 @@
             </b-select>
             <b-field>
               <b-input
+                v-model="form.black"
                 name="black_no"
                 type="number"
                 placeholder="เลขคดีดำ[ลำดับ]*"
@@ -43,7 +45,7 @@
             </b-field>
             <b-field>
               <b-input
-                v-model="black_year"
+                v-model="form.black_year"
                 oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                 maxlength="4"
                 type="number"
@@ -54,16 +56,12 @@
             </b-field>
           </b-field>
           <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
-            <b-datepicker
-              v-model="date"
-              placeholder="e.g. Partnership proposal"
-              required
-            ></b-datepicker>
+            <b-datepicker v-model="date" required></b-datepicker>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
               v-model="form.subject"
-              placeholder="e.g. Partnership proposal"
+              placeholder="ชื่อผู้ร้อง"
               required
             />
           </b-field>
@@ -75,9 +73,8 @@
             <b-input
               v-model="form.question"
               type="textarea"
-              placeholder="Explain how we can help you"
+              placeholder="หมายเหตุ"
               maxlength="255"
-              required
             />
           </b-field>
           <b-field horizontal>
@@ -144,9 +141,29 @@ export default {
       return {
         casetypes: [],
         casetype: null,
+        black_abb: null,
+        black_no: null,
+        black_yaer: null,
+        requester_name: null,
+        comment: null,
+        created_date: new Date(),
+        created_mm_dd_yyyy: null,
       }
     },
-    submit() {},
+    submit() {
+      axios
+        .post(`${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/:sector`)
+        .then((r) => {
+          this.form = r.data.data
+        })
+        .catch((e) => {
+          this.$buefy.toast.open({
+            message: `Error: ${e.message}`,
+            type: 'is-danger',
+            queue: false,
+          })
+        })
+    },
     reset() {
       this.form = mapValues(this.form, (item) => {
         if (item && typeof item === 'object') {
