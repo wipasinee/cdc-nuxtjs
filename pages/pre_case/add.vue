@@ -7,7 +7,8 @@
     </hero-bar>
     <section class="section is-main-section">
       <card-component title="ข้อมูลชั้นฝากขัง" icon="ballot">
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit()">
+          <!-- <input type="hidden" name="sector" value="sector" v-model="form.sector" /> -->
           <b-field label="ประเภทคดี" horizontal>
             <b-select
               v-model="form.casetype"
@@ -60,8 +61,9 @@
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
-              v-model="form.subject"
+              v-model="form.requester_name"
               placeholder="ชื่อผู้ร้อง"
+              name="requester_name"
               required
             />
           </b-field>
@@ -71,9 +73,10 @@
             horizontal
           >
             <b-input
-              v-model="form.question"
+              v-model="form.comment"
               type="textarea"
               placeholder="หมายเหตุ"
+              name="comment"
               maxlength="255"
             />
           </b-field>
@@ -139,6 +142,7 @@ export default {
   methods: {
     getFormObject() {
       return {
+        id: null,
         casetypes: [],
         casetype: null,
         black_abb: null,
@@ -146,13 +150,12 @@ export default {
         black_yaer: null,
         requester_name: null,
         comment: null,
-        created_date: new Date(),
-        created_mm_dd_yyyy: null,
+        // date: new Date(),
       }
     },
     submit() {
       axios
-        .post(`${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/:sector`)
+        .post(`${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/178`)
         .then((r) => {
           this.form = r.data.data
         })
