@@ -97,9 +97,9 @@ export default {
    */
   axios: {
     // Local //
-    baseURL: 'http://localhost:8888',
+    // baseURL: 'http://localhost:8888',
     // Product //
-    // baseURL: 'http://10.1.2.32:8080/',
+    baseURL: 'http://10.1.2.32:8080',
   },
   /*
    ** Build configuration

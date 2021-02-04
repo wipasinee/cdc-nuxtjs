@@ -220,7 +220,7 @@ export default {
         axios
           .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
           .then((r) => {
-            console.log(r.data.data)
+            // console.log(r.data.data)
             this.casetypes = r.data.data
           })
           .catch((e) => {
@@ -241,7 +241,7 @@ export default {
 
             if (item) {
               this.isProfileExists = true
-              console.log(item)
+              // console.log(item)
               this.form = item
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(

@@ -7,8 +7,7 @@
     </hero-bar>
     <section class="section is-main-section">
       <card-component title="ข้อมูลชั้นฝากขัง" icon="ballot">
-        <form @submit.prevent="submit()">
-          <!-- <input type="hidden" name="sector" value="sector" v-model="form.sector" /> -->
+        <form @submit.prevent="submit">
           <b-field label="ประเภทคดี" horizontal>
             <b-select
               v-model="form.casetype"
@@ -19,7 +18,7 @@
               <option
                 v-for="(casetype, index) in casetypes"
                 :key="index"
-                :value="casetype.id"
+                value="casetype.id"
               >
                 {{ casetype.name }}
               </option>
@@ -39,6 +38,7 @@
               <b-input
                 v-model="form.black"
                 name="black_no"
+                value="black_no"
                 type="number"
                 placeholder="เลขคดีดำ[ลำดับ]*"
                 required
@@ -52,18 +52,25 @@
                 type="number"
                 placeholder="เลขคดีดำ[ปี]*"
                 name="black_year"
+                value="black_year"
                 required
               />
             </b-field>
           </b-field>
           <b-field label="วันที่ฝากขัง" message="Message subject" horizontal>
-            <b-datepicker v-model="date" required></b-datepicker>
+            <b-datepicker
+              v-model="date"
+              name="date"
+              value="date"
+              required
+            ></b-datepicker>
           </b-field>
           <b-field label="ชื่อผู้ร้อง" message="Message subject" horizontal>
             <b-input
               v-model="form.requester_name"
               placeholder="ชื่อผู้ร้อง"
               name="requester_name"
+              value="requester_name"
               required
             />
           </b-field>
@@ -77,6 +84,7 @@
               type="textarea"
               placeholder="หมายเหตุ"
               name="comment"
+              value="comment"
               maxlength="255"
             />
           </b-field>
@@ -115,19 +123,8 @@ export default {
   },
   data() {
     return {
+      casetypes: [],
       form: this.getFormObject(),
-      // form: {
-      //   id: null,
-      //   casetypes: [],
-      //   casetype: null,
-      //   black_abb: null,
-      //   black_no: null,
-      //   black_yaer: null,
-      //   requester_name: null,
-      //   comment: null,
-      //   created_date: new Date(),
-      //   created_mm_dd_yyyy: null,
-      // },
       date: new Date(),
     }
   },
@@ -143,21 +140,21 @@ export default {
     getFormObject() {
       return {
         id: null,
-        casetypes: [],
         casetype: null,
         black_abb: null,
         black_no: null,
         black_yaer: null,
         requester_name: null,
         comment: null,
-        // date: new Date(),
+        date: new Date(),
       }
     },
-    submit() {
+    getData() {
       axios
-        .post(`${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/178`)
+        .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
         .then((r) => {
-          this.form = r.data.data
+          // console.log(r.data.data)
+          this.casetypes = r.data.data
         })
         .catch((e) => {
           this.$buefy.toast.open({
@@ -180,12 +177,14 @@ export default {
         queue: false,
       })
     },
-    getData() {
+    submit() {
       axios
-        .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
+        .post(
+          `${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/178`,
+          this.form
+        )
         .then((r) => {
-          console.log(r.data.data)
-          this.casetypes = r.data.data
+          // console.log(r)
         })
         .catch((e) => {
           this.$buefy.toast.open({
