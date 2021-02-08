@@ -124,6 +124,8 @@ export default {
   data() {
     return {
       casetypes: [],
+      isLoading: false,
+      isProfileExists: false,
       form: this.getFormObject(),
       date: new Date(),
     }
@@ -153,7 +155,7 @@ export default {
       axios
         .get(`${this.$axios.defaults.baseURL}/api/v1/types?name=case`)
         .then((r) => {
-          // console.log(r.data.data)
+          console.log(r.data.data)
           this.casetypes = r.data.data
         })
         .catch((e) => {
@@ -179,12 +181,13 @@ export default {
     },
     submit() {
       axios
-        .post(
-          `${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/178`,
-          this.form
-        )
+        .post(`${this.$axios.defaults.baseURL}/api/v1/pre_case/sector/178`, {
+          form: this.form,
+        })
         .then((r) => {
-          // console.log(r)
+          console.log(r.data.data)
+          this.form = r.data.data
+          this.form.router.push(r.data.data)
         })
         .catch((e) => {
           this.$buefy.toast.open({
